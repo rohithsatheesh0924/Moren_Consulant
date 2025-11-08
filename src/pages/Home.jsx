@@ -16,6 +16,7 @@ import PrismaticBurst from "../components/PrismaticBurst";
 import LogoLoop from "../components/LogoLoop";
 import ScrollStack, { ScrollStackItem } from "../components/ScrollStack";
 import Beams from "../components/Beams";
+import Spline from '@splinetool/react-spline';
 
 
 
@@ -255,7 +256,7 @@ const clientLogos = [
       <Navbar />
 
       {/* Hero */}
-<section className="relative w-full pt-32 pb-28 bg-gradient-to-br from-[#10121b] via-black to-[#24131c] flex items-center justify-center text-center px-6 md:px-0 overflow-hidden">
+<section className="relative w-full pt-32 pb-28 bg-gradient-to-br from-[#10121b] via-black to-[#24131c] flex flex-col items-center justify-center text-center px-4 md:px-0 overflow-hidden min-h-[600px]">
 
   {/* PrismaticBurst animated background */}
   <div className="absolute inset-0 w-full h-full z-0 select-none pointer-events-none">
@@ -272,39 +273,35 @@ const clientLogos = [
   </div>
 
   {/* Foreground content */}
-  <Container className="max-w-4xl text-center relative z-10">
+  <Container className="max-w-4xl text-center relative z-10 px-4 sm:px-6">
     <motion.div variants={heroContainer} initial="hidden" animate="visible">
-      <h1 className="text-5xl md:text-6xl font-extrabold mb-8 text-white leading-tight tracking-wide drop-shadow-[0_2px_18px_rgba(255,127,0,0.15)]">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 sm:mb-8 text-white leading-tight tracking-wide drop-shadow-[0_2px_18px_rgba(255,127,0,0.15)]">
         Your <span className="text-orange-500">Enterprise Growth Partner</span> in the Age of AI
       </h1>
 
-      <div className="mb-6">
+      <div className="mb-6 max-w-lg mx-auto">
         <span className="relative inline-block">
-          <span className="text-xl text-gray-300 font-semibold leading-relaxed">
+          <span className="text-base sm:text-lg text-gray-300 font-semibold leading-relaxed">
             Smart. Strategic. Scalable. We empower enterprises with AI-driven solutions that drive innovation, optimize operations, and unlock new growth opportunities.
           </span>
-          <span className="absolute left-0 -bottom-1 h-0.5 bg-orange-600" style={{ width: "100%" }} />
+          <span className="absolute left-0 -bottom-1 h-0.5 bg-orange-600 w-full" />
         </span>
       </div>
 
-      <p className="text-lg text-gray-400 mb-14 max-w-2xl mx-auto">
+      <p className="text-base sm:text-lg text-gray-400 mb-12 max-w-md mx-auto">
         Partnering with you to deliver tailored strategies that accelerate transformation, improve efficiency, and generate measurable business impact at scale.
       </p>
 
-      <div className="flex gap-6 justify-center max-w-md mx-auto">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
         <a
           href="#services"
-          className="bg-orange-500 w-1/2 max-w-xs px-6 py-4 rounded-full text-white font-semibold shadow-md text-center transition-colors duration-300 hover:bg-orange-700 cursor-pointer"
-          onMouseEnter={() => {}}
-          onMouseLeave={() => {}}
+          className="bg-orange-500 w-full sm:w-1/2 px-6 py-4 rounded-full text-white font-semibold shadow-md text-center transition-colors duration-300 hover:bg-orange-700 cursor-pointer"
         >
-          Discover Our Expertise
+          Discover
         </a>
         <a
           href="#contact"
-          className="border border-gray-600 w-1/2 max-w-xs px-6 py-4 rounded-full text-white font-semibold text-center transition-colors duration-300 hover:bg-gray-800 cursor-pointer"
-          onMouseEnter={() => {}}
-          onMouseLeave={() => {}}
+          className="border border-gray-600 w-full sm:w-1/2 px-6 py-4 rounded-full text-white font-semibold text-center transition-colors duration-300 hover:bg-gray-800 cursor-pointer"
         >
           Contact Us
         </a>
@@ -315,71 +312,67 @@ const clientLogos = [
 
 
 
-     {/* Brand Re-Engineering */}
-<section className="w-full min-h-screen py-24 bg-white flex items-center font-montserrat">
-  <Container>
-    <div className="flex flex-col md:flex-row items-stretch bg-[#e5e7eb] rounded-2xl shadow-2xl max-w-5xl mx-auto p-0 overflow-hidden border border-gray-100">
 
-      {/* Text Side: slides right-to-left */}
+    {/* Brand Re-Engineering - Clean & Professional */}
+    <section className="flex-col w-full py-10 bg-white font-montserrat flex items-center">
+  <Container>
+    <div className="flex flex-col md:flex-row items-center mx-auto gap-12 max-w-7xl w-full">
+      
+      {/* Text Side */}
       <motion.div
-        className="flex-1 p-8 md:p-12 flex flex-col justify-center"
+        className="flex-1"
         variants={textFromCenter}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
       >
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">
-          <span className="text-black">Your Business. </span>
-          <span className="text-orange-500 block">Re-engineered for the Future.</span>
+        <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-black">
+          <span>Your Business. </span>
+          <span className="text-orange-600 block">Re-engineered for the Future.</span>
         </h2>
-        <p className="text-xl mb-8 leading-relaxed font-medium text-gray-900">
+        <p className="text-xl leading-relaxed font-medium text-gray-900 mb-6 max-w-lg">
           We build resilient, data-powered growth systems tailored for enterprise scale and agility. Our expertise in AI, automation, and branding empowers you to lead digital transformation, optimize operations, and penetrate new markets.
         </p>
-        <p className="text-lg text-gray-700 font-normal leading-relaxed mb-6">
+        <p className="text-lg text-gray-700 font-normal leading-relaxed max-w-lg">
           Collaborate with <span className="font-semibold text-black">Moren Consultancies</span> to harness technology and strategic insight that drive performance, unlock innovation, and foster sustainable advantage.
         </p>
-        <div className="mt-2 flex gap-4">
+        <div className="flex gap-6 mt-8">
           <a
             href="#services"
-            className="bg-orange-500 hover:bg-orange-700 transition rounded-full px-8 py-3 text-white font-bold shadow-md text-lg"
+            className="bg-orange-600 hover:bg-orange-700 rounded-full px-8 py-3 text-white font-bold shadow-md text-lg transition"
           >
             Explore Services
           </a>
           <a
             href="#contact"
-            className="bg-white hover:bg-gray-100 border border-gray-400 rounded-full px-8 py-3 text-gray-900 font-semibold shadow text-lg"
+            className="bg-gray-100 hover:bg-gray-200 rounded-full px-8 py-3 text-gray-900 font-semibold shadow-md text-lg transition"
           >
             Let’s Talk
           </a>
         </div>
       </motion.div>
 
-      {/* Image Side: slides left-to-right */}
+      {/* Image Side */}
       <motion.div
-        className="flex-1 flex items-center justify-center bg-gradient-to-br from-[#f1f2f6] to-[#e5e7eb] min-h-[320px]"
+        className="flex-1 flex items-center justify-center min-h-[320px] w-full max-w-md md:max-w-xl lg:max-w-2xl"
         variants={imageFromCenter}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
       >
-        <img
-          src="./demo1.webp"
-          alt="Transformation Illustration"
-          className="w-full h-full object-cover"
-          style={{ maxWidth: 400, maxHeight: 370 }}
+        <Spline 
+          scene="https://prod.spline.design/QYJ0ZKLvUde7ZAxj/scene.splinecode" 
+          style={{ width: '100%', height: '100%' }}
         />
       </motion.div>
     </div>
   </Container>
-</section>
 
-{/* Curved Loop Section */}
-<section className="relative bg-[#e5e7eb] py-12 md:py-16 flex items-center justify-center ">
   <CurvedLoop
     marqueeText="Moren Consultant"
     speed={2}
     className="font-extrabold font-montserrat text-4xl md:text-6xl lg:text-7xl tracking-wide text-orange-700 drop-shadow-[0_4px_12px_rgba(0,0,0,0.10)]"
-    curveAmount={400}
+    curveAmount={0}
     direction="left"
     interactive={false}
   />
@@ -388,57 +381,55 @@ const clientLogos = [
 
 
        {/* Services Grid */}
- <section className="w-full py-24 bg-gray-100 text-black border-b border-gray-300 font-montserrat">
-      <Container>
-        <div className="mb-10 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">
-            Solution-Oriented <span className="text-orange-600">Service Portfolio</span>
-          </h2>
-          <p className="max-w-2xl mx-auto text-lg text-gray-700 font-medium">
-            As a modern-day ITES company, technology adoption and integration have been the core essence of Stellar’s Title and Mortgage services.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
-          {services.map((cardData, idx) => {
-            const isOrange = idx % 2 === 1;
-            return (
-              <motion.div
-                key={idx}
-                variants={gridItemVariant}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                whileHover={{
-                  scale: 1.06,
-                  boxShadow: isOrange
-                    ? "0 15px 40px 0 rgba(255,127,0,0.15)"
-                    : "0 15px 40px 0 rgba(38,38,38,0.07)"
-                }}
-                className={`relative rounded-2xl flex flex-col justify-between min-h-[320px] shadow-lg
-                  ${isOrange ? "bg-orange-600 text-white" : "bg-white text-gray-900"} 
-                  transition-all duration-250 p-8`}
-              >
-                <div>
-                  <h3 className={`font-bold text-2xl mb-5 leading-tight ${isOrange ? "text-white" : "text-black"}`}>
-                    {cardData.title}
-                  </h3>
-                  <p className={`mb-7 text-base leading-relaxed ${isOrange ? "text-white/90" : "text-gray-800"}`}>
-                    {cardData.desc}
-                  </p>
-                </div>
-                <div className="flex items-end justify-end">
-                  <span className={`mt-3 ${isOrange ? "text-white/70" : "text-gray-500"}`}>
-                    {icons[idx % icons.length]}
-                  </span>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </Container>
-    </section>
-
-
+<section className="w-full py-24 bg-gray-100 text-black font-montserrat">
+  <Container>
+    <div className="mb-10 text-center">
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">
+        Solution-Oriented <span className="text-orange-600">Service Portfolio</span>
+      </h2>
+      <p className="max-w-2xl mx-auto text-lg text-gray-700 font-medium">
+        As a modern-day ITES company, technology adoption and integration have been the core essence of Stellar’s Title and Mortgage services.
+      </p>
+    </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+      {services.map((cardData, idx) => {
+        const isOrange = idx % 2 === 1;
+        return (
+          <motion.div
+            key={idx}
+            variants={gridItemVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            whileHover={{
+              scale: 1.06,
+              boxShadow: isOrange
+                ? "0 15px 40px 0 rgba(255,127,0,0.15)"
+                : "0 15px 40px 0 rgba(38,38,38,0.07)"
+            }}
+            className={`relative rounded-2xl flex flex-col justify-between min-h-[320px] shadow-lg
+              ${isOrange ? "bg-orange-600 text-white" : "bg-white text-gray-900"} 
+              transition-all duration-250 p-8`}
+          >
+            <div>
+              <h3 className={`font-bold text-2xl mb-5 leading-tight ${isOrange ? "text-white" : "text-black"}`}>
+                {cardData.title}
+              </h3>
+              <p className={`mb-7 text-base leading-relaxed ${isOrange ? "text-white/90" : "text-gray-800"}`}>
+                {cardData.desc}
+              </p>
+            </div>
+            <div className="flex items-end justify-end">
+              <span className={`mt-3 ${isOrange ? "text-white/70" : "text-gray-500"}`}>
+                {icons[idx % icons.length]}
+              </span>
+            </div>
+          </motion.div>
+        );
+      })}
+    </div>
+  </Container>
+</section>
 
    {/* Process Timeline */}
 <section className="w-full py-28 bg-[#f3f4f5] text-black">

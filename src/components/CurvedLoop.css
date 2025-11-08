@@ -1,9 +1,9 @@
 .curved-loop-jacket {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding-top: 20px;
 }
 
 .curved-loop-svg {
@@ -13,7 +13,7 @@
   overflow: visible;
   display: block;
   font-size: 6rem;
-  fill: #ffffff;
+  fill: orange;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
