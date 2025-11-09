@@ -320,37 +320,38 @@ const clientLogos = [
       
       {/* Text Side */}
       <motion.div
-        className="flex-1"
-        variants={textFromCenter}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-      >
-        <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-black">
-          <span>Your Business. </span>
-          <span className="text-orange-600 block">Re-engineered for the Future.</span>
-        </h2>
-        <p className="text-xl leading-relaxed font-medium text-gray-900 mb-6 max-w-lg">
-          We build resilient, data-powered growth systems tailored for enterprise scale and agility. Our expertise in AI, automation, and branding empowers you to lead digital transformation, optimize operations, and penetrate new markets.
-        </p>
-        <p className="text-lg text-gray-700 font-normal leading-relaxed max-w-lg">
-          Collaborate with <span className="font-semibold text-black">Moren Consultancies</span> to harness technology and strategic insight that drive performance, unlock innovation, and foster sustainable advantage.
-        </p>
-        <div className="flex gap-6 mt-8">
-          <a
-            href="#services"
-            className="bg-orange-600 hover:bg-orange-700 rounded-full px-8 py-3 text-white font-bold shadow-md text-lg transition hover:text-white"
-          >
-            Explore Services
-          </a>
-          <a
-            href="#contact"
-            className="bg-gray-100 hover:bg-gray-200 rounded-full px-8 py-3 text-gray-900 font-semibold shadow-md text-lg transition"
-          >
-            Let’s Talk
-          </a>
-        </div>
-      </motion.div>
+  className="flex-1"
+  variants={textFromCenter}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.4 }}
+>
+  <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-black">
+    <span>Your Business. </span>
+    <span className="text-orange-600 block">Re-engineered for the Future.</span>
+  </h2>
+  <p className="text-xl leading-relaxed font-medium text-gray-900 mb-6 max-w-lg">
+    We build resilient, data-powered growth systems tailored for enterprise scale and agility. Our expertise in AI, automation, and branding empowers you to lead digital transformation, optimize operations, and penetrate new markets.
+  </p>
+  <p className="text-lg text-orange-700 font-normal leading-relaxed max-w-lg">
+    Collaborate with <span className="font-semibold text-black">Moren Consultancies</span> to harness technology and strategic insight that drive performance, unlock innovation, and foster sustainable advantage.
+  </p>
+  <div className="flex gap-6 mt-8">
+    <a
+      href="#services"
+      className="bg-orange-600 hover:bg-orange-700 rounded-full px-8 py-3 text-white font-bold shadow-md text-lg transition hover:text-white"
+    >
+      Explore Services
+    </a>
+    <a
+      href="#contact"
+      className="bg-orange-50 hover:bg-orange-100 rounded-full px-8 py-3 text-orange-700 font-semibold shadow-md text-lg transition"
+    >
+      Let’s Talk
+    </a>
+  </div>
+</motion.div>
+
 
       {/* Image Side */}
     <motion.div
@@ -379,19 +380,18 @@ const clientLogos = [
     }}
   />
 </motion.div>
-
-
     </div>
   </Container>
 
   <CurvedLoop
-    marqueeText="Moren Consultant"
-    speed={2}
-    className="font-extrabold font-montserrat text-4xl md:text-6xl lg:text-7xl tracking-wide text-orange-700 drop-shadow-[0_4px_12px_rgba(0,0,0,0.10)]"
-    curveAmount={0}
-    direction="left"
-    interactive={false}
-  />
+  marqueeText="Moren Consultant"
+  speed={2}
+  className="font-extrabold font-montserrat text-[3rem] sm:text-5xl md:text-6xl lg:text-7xl tracking-wide text-orange-700 drop-shadow-[0_4px_12px_rgba(0,0,0,0.10)]"
+  curveAmount={0}
+  direction="left"
+  interactive={false}
+/>
+
 </section>
 
 
@@ -469,7 +469,16 @@ const clientLogos = [
     </h2>
     <motion.div
       className="grid md:grid-cols-5 gap-14 text-center md:text-left"
-      variants={processContainer}
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.18,
+            delayChildren: 0.2,
+            when: "beforeChildren"
+          }
+        }
+      }}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
@@ -477,7 +486,18 @@ const clientLogos = [
       {steps.map((step, idx) => (
         <motion.div
           key={idx}
-          variants={processItem}
+          variants={{
+            hidden: { opacity: 0, y: 40, scale: 0.98 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              transition: {
+                duration: 0.7,
+                ease: [0.42, 0, 0.58, 1]
+              }
+            }
+          }}
           className="flex flex-col items-center md:items-start max-w-xs mx-auto md:mx-0"
         >
           <div className="text-5xl font-extrabold text-orange-600 mb-3">{step.num}</div>
@@ -492,32 +512,52 @@ const clientLogos = [
 
 
 
+
       {/* Metrics / Impact Facts */}
      <section className="w-full py-28 bg-[#f3f4f5] text-orange-600">
-      <Container>
-        <div className="grid md:grid-cols-3 gap-16 text-center max-w-7xl mx-auto">
-          <div ref={ref1}>
-            <div className="text-7xl font-extrabold mb-3">
-              {inView1 ? <CountUp end={100} duration={3} /> : 0}+
-            </div>
-            <div className="text-lg font-semibold">Digital Ecosystems Delivered</div>
-          </div>
-          <div ref={ref2}>
-            <div className="text-7xl font-extrabold mb-3">
-              {inView2 ? <CountUp end={3} duration={3} /> : 0}x
-            </div>
-            <div className="text-lg font-semibold">Operational Efficiency Gains</div>
-            <div className="text-sm mt-1 text-orange-700">via Automation</div>
-          </div>
-          <div ref={ref3}>
-            <div className="text-7xl font-extrabold mb-3">
-              {inView3 ? <CountUp end={40} duration={3} /> : 0}%
-            </div>
-  <div className="text-lg font-semibold">Average Cost Optimization</div>
- </div>
- </div>
- </Container>
- </section>
+  <Container>
+    <div className="grid md:grid-cols-3 gap-16 text-center max-w-7xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 32, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.7, ease: [0.42, 0, 0.58, 1] }}
+        viewport={{ once: true, amount: 0.6 }}
+        ref={ref1}
+      >
+        <div className="text-7xl font-extrabold mb-3">
+          {inView1 ? <CountUp end={100} duration={3} /> : 0}+
+        </div>
+        <div className="text-lg font-semibold text-black">Digital Ecosystems Delivered</div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 32, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.7, ease: [0.42, 0, 0.58, 1], delay: 0.15 }}
+        viewport={{ once: true, amount: 0.6 }}
+        ref={ref2}
+      >
+        <div className="text-7xl font-extrabold mb-3">
+          {inView2 ? <CountUp end={3} duration={3} /> : 0}x
+        </div>
+        <div className="text-lg font-semibold text-black">Operational Efficiency Gains</div>
+        <div className="text-sm mt-1 text-orange-700">via Automation</div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 32, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.7, ease: [0.42, 0, 0.58, 1], delay: 0.3 }}
+        viewport={{ once: true, amount: 0.6 }}
+        ref={ref3}
+      >
+        <div className="text-7xl font-extrabold mb-3">
+          {inView3 ? <CountUp end={40} duration={3} /> : 0}%
+        </div>
+        <div className="text-lg font-semibold text-black">Average Cost Optimization</div>
+      </motion.div>
+    </div>
+  </Container>
+</section>
+
 
    {/* Products Section */}
 <section
