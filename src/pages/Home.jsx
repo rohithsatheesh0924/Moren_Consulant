@@ -339,7 +339,7 @@ const clientLogos = [
         <div className="flex gap-6 mt-8">
           <a
             href="#services"
-            className="bg-orange-600 hover:bg-orange-700 rounded-full px-8 py-3 text-white font-bold shadow-md text-lg transition"
+            className="bg-orange-600 hover:bg-orange-700 rounded-full px-8 py-3 text-white font-bold shadow-md text-lg transition hover:text-white"
           >
             Explore Services
           </a>
@@ -353,18 +353,34 @@ const clientLogos = [
       </motion.div>
 
       {/* Image Side */}
-      <motion.div
-        className="flex-1 flex items-center justify-center min-h-[320px] w-full max-w-md md:max-w-xl lg:max-w-2xl"
-        variants={imageFromCenter}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-      >
-        <Spline 
-          scene="https://prod.spline.design/QYJ0ZKLvUde7ZAxj/scene.splinecode" 
-          style={{ width: '100%', height: '100%' }}
-        />
-      </motion.div>
+    <motion.div
+  className="flex-1 flex items-center justify-center w-full max-w-md md:max-w-xl lg:max-w-2xl"
+  style={{
+    aspectRatio: 1,
+    width: '100%',
+    maxWidth: 520,
+    minWidth: 320,
+    height: 'auto'
+  }}
+  variants={imageFromCenter}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.4 }}
+>
+  <Spline 
+    scene="https://prod.spline.design/QYJ0ZKLvUde7ZAxj/scene.splinecode"
+    style={{
+      width: '100%',
+      height: '100%',
+      minWidth: 300,
+      maxWidth: 520,
+      aspectRatio: 1,  // Ensures square canvas for full content display
+      display: 'block'
+    }}
+  />
+</motion.div>
+
+
     </div>
   </Container>
 
@@ -397,16 +413,30 @@ const clientLogos = [
         return (
           <motion.div
             key={idx}
-            variants={gridItemVariant}
+            variants={{
+              hidden: { opacity: 0, y: 20, scale: 0.97 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: {
+                  duration: 0.8,
+                  ease: [0.42, 0, 0.58, 1], // ease in-out cubic bezier
+                },
+              },
+            }}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.3 }}
             whileHover={{
-              scale: 1.06,
+              scale: 1.08,
               boxShadow: isOrange
-                ? "0 15px 40px 0 rgba(255,127,0,0.15)"
-                : "0 15px 40px 0 rgba(38,38,38,0.07)"
+                ? "0 25px 60px rgba(255,127,0,0.25)"
+                : "0 25px 60px rgba(38,38,38,0.15)",
+              y: -5,
+              transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
             }}
+            whileTap={{ scale: 0.95, y: 0, transition: { duration: 0.15 } }}
             className={`relative rounded-2xl flex flex-col justify-between min-h-[320px] shadow-lg
               ${isOrange ? "bg-orange-600 text-white" : "bg-white text-gray-900"} 
               transition-all duration-250 p-8`}
