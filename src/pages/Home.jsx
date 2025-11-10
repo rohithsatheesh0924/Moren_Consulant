@@ -662,7 +662,7 @@ const clientLogos = [
       </Container>
     </section>
 
-      <Footer />
+     
     </div>
   );
 }
