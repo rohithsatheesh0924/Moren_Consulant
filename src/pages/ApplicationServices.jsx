@@ -69,15 +69,6 @@ export default function ApplicationServices() {
             <span className="text-orange-200"> technology</span> and industry experience.
           </p>
         </motion.div>
-<CurvedLoop
-  marqueeText="Moren Consultant"
-  speed={2}
-  className="font-extrabold font-montserrat text-[3rem] sm:text-5xl md:text-6xl lg:text-7xl tracking-wide text-orange-700 drop-shadow-[0_4px_12px_rgba(0,0,0,0.10)]"
-  curveAmount={0}
-  direction="left"
-  interactive={false}
-/>
-
       </div>
     </header>
 
