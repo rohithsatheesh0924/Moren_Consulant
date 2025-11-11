@@ -15,7 +15,7 @@ export default function Automation() {
       <header className="relative w-full h-[400px] md:h-[690px] flex items-center bg-black overflow-hidden">
       {/* Background Image */}
       <img
-        src="./Screenshot-2025-11-11-190306.jpg" // Your actual hero background image
+        src="./demo1.webp" // Your actual hero background image
         alt="Hero"
         className="absolute inset-0 w-full h-full object-cover object-center"
         style={{ zIndex: 0 }}
@@ -60,7 +60,7 @@ export default function Automation() {
         {/* Slightly slimmer image column */}
         <div className="md:w-5/12 w-full flex-shrink-0 flex items-stretch">
           <img
-            src="./Screenshot-2025-11-11-190720.jpg" // Your actual RPA hero image
+            src="./demo3.webp" // Your actual RPA hero image
             alt="Robotic Process Automation"
             className="w-full h-full object-cover object-center"
             style={{ minHeight: 400, maxHeight: 550 }}
@@ -108,7 +108,7 @@ export default function Automation() {
             className="flex-shrink-0"
           >
             <img
-              src="./Screenshot-2025-11-11-190852.jpg" // Use your actual capabilities image
+              src="./c8.png" // Use your actual capabilities image
               alt="RPA Capabilities"
               className="w-[370px] h-[330px] rounded-2xl shadow-lg object-cover"
             />
@@ -163,7 +163,7 @@ export default function Automation() {
             <PixelTransition
               firstContent={
                 <img
-                  src="./rpa-benefit-speed.jpg" // Use your actual benefit image
+                  src="./c7.jpeg" // Use your actual benefit image
                   alt="Process cycle time reduction"
                   className="object-cover w-full h-full rounded-2xl"
                 />
@@ -208,7 +208,7 @@ export default function Automation() {
             <PixelTransition
               firstContent={
                 <img
-                  src="./rpa-benefit-roi.jpg" // Use your actual ROI image
+                  src="./c7.jpeg" // Use your actual ROI image
                   alt="ROI improvement"
                   className="object-cover w-full h-full rounded-2xl"
                 />
@@ -258,7 +258,7 @@ export default function Automation() {
           transition={{ duration: 1.1, ease: [0.42, 0, 0.58, 1] }}
         >
           <img
-            src="./Screenshot-2025-11-11-192604.jpg" // Use your actual AI automation image
+            src="./c8.png" // Use your actual AI automation image
             alt="AI Automation"
             className="w-[370px] h-full min-h-[340px] object-cover"
             style={{ borderRadius: "1.5rem 0 0 1.5rem" }}
@@ -305,7 +305,7 @@ export default function Automation() {
             style={{ height: 312 }}
           >
             <img
-              src="./Screenshot-2025-11-11-193603.jpg" // Use your actual AI services image
+              src="./c5.jpeg" // Use your actual AI services image
               alt="AI Automation Services"
               className="w-[320px] h-full rounded-2xl shadow-lg object-cover"
               style={{ minHeight: 312, maxHeight: 312 }}

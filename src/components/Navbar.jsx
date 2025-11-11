@@ -31,7 +31,7 @@ const Navbar = () => {
           subItems: [
             { label: "Application Service", to: "/application-services" },
             { label: "Automation", to: "/automation" },
-            { label: "Cognitive Service (AI/ML)", to: "/cognitive-service" },
+            { label: "Aiml", to: "/cognitive-service" },
             { label: "Data & Business Intelligence (BI)", to: "/data-bi" },
             { label: "Enterprise Platforms", to: "/enterprise-platforms" },
             { label: "Software Engineering", to: "/software-engineering" }
