@@ -1,62 +1,89 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
+
+// --- Configuration Data (Kept the same) ---
+const navItems = [
+  {
+    name: "services",
+    to: "/services", 
+    dropdown: [
+      {
+        name: "Technology",
+        subItems: [
+          { label: "Application Service", to: "/application-services" },
+          { label: "Automation", to: "/automation" },
+          { label: "Aiml", to: "/cognitive-service" },
+          { label: "Data & Business Intelligence (BI)", to: "/data-bi" },
+          { label: "Enterprise Platforms", to: "/enterprise-platforms" },
+          { label: "Software Engineering", to: "/software-engineering" }
+        ]
+      },
+      {
+        name: "Business Process Management",
+        subItems: [
+          { label: "Mortgage Services", to: "/business-process-management/mortgage-services" },
+          { label: "Title Production Services", to: "/business-process-management/title-production-services" },
+          { label: "Tax Servicing", to: "/business-process-management/tax-servicing" },
+          { label: "Life of Loan Tax Servicing", to: "/business-process-management/life-of-loan-tax-servicing" },
+          { label: "Appraisal Services", to: "/business-process-management/appraisal-services" }
+        ]
+      }
+    ]
+  },
+  { name: "industries", to: "/industries", dropdown: [] },
+  { name: "products", to: "/products", dropdown: [] },
+  { name: "portfolio", to: "/portfolio", dropdown: [] },
+  { name: "about", to: "/about", dropdown: [] }
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activeNestedDropdown, setActiveNestedDropdown] = useState(null);
-  const [activeMobileDropdown, setActiveMobileDropdown] = useState(null);
   const location = useLocation();
+  const dropdownRef = useRef(null);
 
+  // Close dropdown on route change
   useEffect(() => {
-    setIsOpen(false); // Close mobile menu on route change
+    setIsOpen(false);
     setActiveDropdown(null);
     setActiveNestedDropdown(null);
-    setActiveMobileDropdown(null);
   }, [location]);
 
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    {
-      name: "services",
-      dropdown: [
-        {
-          name: "Technology",
-          subItems: [
-            { label: "Application Service", to: "/application-services" },
-            { label: "Automation", to: "/automation" },
-            { label: "Aiml", to: "/cognitive-service" },
-            { label: "Data & Business Intelligence (BI)", to: "/data-bi" },
-            { label: "Enterprise Platforms", to: "/enterprise-platforms" },
-            { label: "Software Engineering", to: "/software-engineering" }
-          ]
-        },
-        { name: "Business Process Management", subItems: [] }
-      ]
-    },
-    { name: "industries", dropdown: [] },
-    { name: "products", dropdown: [] },
-    { name: "portfolio", dropdown: [] },
-    { name: "about", dropdown: [] }
-  ];
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setActiveDropdown(null);
+        setActiveNestedDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const handleMouseEnter = (itemName) => setActiveDropdown(itemName);
-  const handleMouseLeave = () => {
-    setActiveDropdown(null);
-    setActiveNestedDropdown(null);
-  };
-  const handleNestedMouseEnter = (itemName) => setActiveNestedDropdown(itemName);
+  const toggleDropdown = useCallback((itemName) => {
+    setActiveDropdown(prev => (prev === itemName ? null : itemName));
+    setActiveNestedDropdown(null); // Reset nested when main toggles
+  }, []);
+
+  const toggleNestedDropdown = useCallback((itemName) => {
+    setActiveNestedDropdown(prev => (prev === itemName ? null : itemName));
+  }, []);
 
   return (
     <>
-      <nav className={`fixed top-4 left-4 right-4 z-50 mx-auto max-w-7xl transition-all duration-300 ${scrolled ? "top-2" : "top-4"}`}>
+      <nav className={`fixed top-4 left-4 right-4 z-50 mx-auto max-w-7xl transition-all duration-300 ${scrolled ? "top-2" : "top-4"}`} ref={dropdownRef}>
         <div className={`relative backdrop-blur-xl bg-gradient-to-r from-black/90 via-gray-900/85 to-black/90 border rounded-full shadow-2xl transition-all duration-300 ${scrolled ? "border-orange-500/40 shadow-orange-500/20" : "border-gray-800"}`}>
+          {/* This hover effect provides the subtle glow behind the nav bar, keeping it for cool design */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500/0 via-orange-500/20 to-orange-500/0 opacity-0 hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
           <div className="relative flex items-center justify-between h-20 px-6 md:px-10">
             {/* Brand */}
@@ -76,37 +103,50 @@ const Navbar = () => {
                 <div
                   key={item.name}
                   className="relative"
-                  onMouseEnter={() => handleMouseEnter(item.name)}
-                  onMouseLeave={handleMouseLeave}
                 >
-                  <Link
-                    to={item.dropdown.length === 0 ? `/${item.name}` : "#"}
-                    className="relative px-5 py-2 text-white text-[15px] font-medium rounded-full flex items-center hover:text-orange-400 transition-colors overflow-hidden"
-                    style={{
-                      animation: `fadeInDown 0.5s ease-out ${idx * 0.08}s both`
-                    }}
-                  >
-                    <span className="relative z-10">{item.name.charAt(0).toUpperCase() + item.name.slice(1)}</span>
-                    {item.dropdown.length > 0 && (
-                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {item.dropdown.length === 0 ? (
+                    <Link
+                      to={`/${item.name}`}
+                      className="relative px-5 py-2 text-white text-[15px] font-medium rounded-full flex items-center hover:text-orange-400 transition-colors overflow-hidden group"
+                      style={{ animation: `fadeInDown 0.5s ease-out ${idx * 0.08}s both` }}
+                    >
+                      <span className="relative z-10">{item.name.charAt(0).toUpperCase() + item.name.slice(1)}</span>
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => toggleDropdown(item.name)}
+                      className={`relative px-5 py-2 text-white bg-slate-900 text-[15px] font-medium rounded-full flex items-center hover:text-orange-400 transition-colors overflow-hidden focus:outline-none group
+                        ${activeDropdown === item.name ? 'text-orange-400' : ''}
+                      `}
+                      style={{ animation: `fadeInDown 0.5s ease-out ${idx * 0.08}s both` }}
+                    >
+                      <span className="relative z-10">{item.name.charAt(0).toUpperCase() + item.name.slice(1)}</span>
+                      <svg
+                        className={`w-4 h-4 ml-1 transition-transform duration-300 ${activeDropdown === item.name ? "rotate-180" : ""}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
-                    )}
-                    <div className="absolute inset-0 bg-orange-500/10 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-full" />
-                  </Link>
+                    </button>
+                  )}
 
-                  {/* Dropdown */}
-                  {item.dropdown.length > 0 && activeDropdown === item.name && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-gradient-to-br from-slate-950 via-gray-900 to-black border border-orange-500/20 rounded-2xl shadow-xl shadow-orange-500/20 overflow-visible z-50">
+                  {/* Dropdown for Services */}
+                  {item.name === "services" && activeDropdown === "services" && (
+                    // Main Dropdown Container (Dark Background, Orange Border)
+                    <div className="absolute top-full left-0 mt-2 w-72 text-white bg-slate-900 border border-orange-500/30 rounded-2xl shadow-xl shadow-black/50 overflow-visible z-50 animate-fadeIn">
                       <div className="p-2">
-                        {item.dropdown.map((dropItem, dropIdx) => (
-                          <div key={dropItem.name}
-                            className="relative group/nested"
-                            onMouseEnter={() => handleNestedMouseEnter(dropItem.name)}>
+                        {item.dropdown.map((dropItem) => (
+                          // Main Dropdown Item (Technology, Business Process Management)
+                          <div key={dropItem.name} className="relative group/nested">
                             {dropItem.subItems.length === 0 ? (
                               <Link
                                 to={`/${dropItem.name.toLowerCase().replace(/\s+/g, '-')}`}
-                                className="block px-4 py-3 text-white text-sm font-medium hover:bg-orange-500/10 rounded-xl transition duration-200 hover:translate-x-1"
+                                // **Standardized Dropdown Link Style**
+                                className="block px-4 py-3  bg-slate-900 text-sm font-medium hover:bg-orange-600/20 hover:text-white rounded-xl transition duration-200 hover:translate-x-1"
+                                onClick={() => setActiveDropdown(null)}
                                 style={{ animation: `slideInRight 0.28s cubic-bezier(0.42, 0, 0.58, 1) both` }}
                               >
                                 <span>{dropItem.name}</span>
@@ -115,24 +155,36 @@ const Navbar = () => {
                               <>
                                 <button
                                   type="button"
-                                  className="block px-4 py-3 text-white text-sm font-medium hover:bg-orange-500/10 rounded-xl transition duration-200 hover:translate-x-1 flex items-center justify-between w-full text-left"
+                                  onClick={() => toggleNestedDropdown(dropItem.name)}
+                                  // **Standardized Dropdown Button Style**
+                                  className="block px-4 py-3  bg-slate-900 text-sm font-medium hover:bg-orange-600/20 hover:text-white rounded-xl transition duration-200 hover:translate-x-1 flex items-center justify-between w-full text-left"
                                 >
                                   <span>{dropItem.name}</span>
-                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <svg
+                                    className={`w-4 h-4 text-orange-400 transition-transform duration-300 ${activeNestedDropdown === dropItem.name ? "rotate-90" : ""}`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                  >
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                   </svg>
                                 </button>
+
                                 {/* Nested Dropdown */}
                                 {activeNestedDropdown === dropItem.name && (
-                                  <div className="absolute left-full top-0 ml-2 w-72 bg-gradient-to-br from-gray-900 via-black to-gray-900 border border-orange-500/20 rounded-2xl shadow-lg shadow-orange-500/20 overflow-hidden z-50"
-                                    onMouseEnter={() => handleNestedMouseEnter(dropItem.name)}
-                                  >
+                                  // Nested Dropdown Container (Slightly Darker Background)
+                                  <div className="absolute left-full top-0 ml-2 w-72 bg-slate-800 border border-orange-500/30 rounded-2xl shadow-lg shadow-black/50 overflow-hidden z-50 animate-fadeInLeft">
                                     <div className="p-2">
-                                      {dropItem.subItems.map((subItem, subIdx) => (
+                                      {dropItem.subItems.map((subItem) => (
                                         <Link
                                           key={subItem.label}
                                           to={subItem.to}
-                                          className="block px-4 py-3 text-white text-sm hover:bg-orange-500/10 rounded-xl transition duration-200 hover:translate-x-1"
+                                          // **Standardized Nested Link Style**
+                                          className="block px-4 py-3 text-gray-200 text-sm hover:bg-orange-600/20 hover:text-white rounded-xl transition duration-200 hover:translate-x-1"
+                                          onClick={() => {
+                                            setActiveDropdown(null);
+                                            setActiveNestedDropdown(null);
+                                          }}
                                         >
                                           {subItem.label}
                                         </Link>
@@ -165,26 +217,74 @@ const Navbar = () => {
                 aria-label="Toggle menu"
               >
                 <div className="w-6 h-5 flex flex-col justify-between">
-                  <span className={`block h-0.5 bg-white transition-all duration-300 ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
-                  <span className={`block h-0.5 bg-white transition-all duration-300 ${isOpen ? "opacity-0" : ""}`} />
-                  <span className={`block h-0.5 bg-white transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+                  <span className={`block h-0.5  transition-all duration-300 ${isOpen ? "rotate-45 translate-y-2" : ""}`} />
+                  <span className={`block h-0.5  transition-all duration-300 ${isOpen ? "opacity-0" : ""}`} />
+                  <span className={`block h-0.5  transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-2" : ""}`} />
                 </div>
               </button>
             </div>
           </div>
         </div>
+        
+        {/* Mobile Menu (Simplified/Drawer) */}
+        {isOpen && (
+             <div className="md:hidden absolute top-full left-0 right-0 mt-2 bg-slate-900 border border-gray-800 rounded-lg shadow-xl p-4">
+                {navItems.map((item) => (
+                    <div key={item.name} className="py-2 border-b border-gray-700 last:border-b-0">
+                        {item.dropdown.length === 0 ? (
+                            <Link to={`/${item.name}`} className="block text-white hover:text-orange-400" onClick={() => setIsOpen(false)}>
+                                {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                            </Link>
+                        ) : (
+                            // Simple mobile dropdown for demonstration
+                            <div>
+                                <button 
+                                  className="w-full text-left text-orange hover:text-orange-400 flex justify-between items-center" 
+                                  onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
+                                >
+                                    {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                                    <svg className={`w-4 h-4 transition-transform ${activeDropdown === item.name ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                                </button>
+                                {activeDropdown === item.name && (
+                                    <div className="ml-4 mt-2 space-y-1">
+                                        {item.dropdown.map((dropItem) => (
+                                            <div key={dropItem.name} className="border-l border-orange-500/50 pl-2">
+                                                <h4 className="text-orange-400 text-sm mt-1">{dropItem.name}</h4>
+                                                {dropItem.subItems.map((subItem) => (
+                                                    <Link key={subItem.label} to={subItem.to} className="block text-gray-400 text-xs hover:text-orange-400 py-1" onClick={() => setIsOpen(false)}>{subItem.label}</Link>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+        )}
       </nav>
 
       {/* Custom animations */}
       <style>{`
         @keyframes fadeInDown {
           from { opacity: 0; transform: translateY(-10px);}
-          to   { opacity: 1; transform: translateY(0);}
-        }  
+          to   { opacity: 1; transform: translateY(0);}
+        }  
         @keyframes slideInRight {
           from { opacity: 0; transform: translateX(-20px);}
-          to   { opacity: 1; transform: translateX(0);}
+          to   { opacity: 1; transform: translateX(0);}
         }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(16px);}
+          to   { opacity: 1; transform: translateY(0);}
+        }
+        .animate-fadeIn { animation: fadeIn 0.38s cubic-bezier(0.45,0.07,0.52,1) both;}
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(10px);}
+            to   { opacity: 1; transform: translateX(0);}
+        }
+        .animate-fadeInLeft { animation: fadeInLeft 0.2s ease-out both;}
       `}</style>
     </>
   );

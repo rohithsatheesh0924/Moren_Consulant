@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import ApplicationServices from "./pages/ApplicationServices";
 import Automation from "./pages/Automation";
+import Bi from "./pages/Bi";
 import Aiml from "./pages/Aiml";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/application-services" element={<ApplicationServices />} />
           <Route path="/automation" element={<Automation />} />
           <Route path="/cognitive-service" element={<Aiml />} />
+          <Route path="/data-bi" element={<Bi />} />
           {/* Add more routes as needed */}
         </Routes>
       </div>
