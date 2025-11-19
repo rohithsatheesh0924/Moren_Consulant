@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import ApplicationServices from "./pages/ApplicationServices";
 import Automation from "./pages/Automation";
 import Bi from "./pages/Bi";
+import Ep from "./pages/Ep";
+import Se from "./pages/Se";
 import Aiml from "./pages/Aiml";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -31,6 +33,8 @@ function App() {
           <Route path="/automation" element={<Automation />} />
           <Route path="/cognitive-service" element={<Aiml />} />
           <Route path="/data-bi" element={<Bi />} />
+          <Route path="/enterprise-platforms" element={<Ep />} />
+          <Route path="/software-engineering" element={<Se />} />
           {/* Add more routes as needed */}
         </Routes>
       </div>
