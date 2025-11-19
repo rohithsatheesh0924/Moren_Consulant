@@ -21,11 +21,11 @@ const navItems = [
       {
         name: "Business Process Management",
         subItems: [
-          { label: "Mortgage Services", to: "/business-process-management/mortgage-services" },
-          { label: "Title Production Services", to: "/business-process-management/title-production-services" },
-          { label: "Tax Servicing", to: "/business-process-management/tax-servicing" },
-          { label: "Life of Loan Tax Servicing", to: "/business-process-management/life-of-loan-tax-servicing" },
-          { label: "Appraisal Services", to: "/business-process-management/appraisal-services" }
+          { label: "Mortgage Services", to: "/mortgage-services" },
+          { label: "Title Production Services", to: "/title-production-services" },
+          { label: "Tax Servicing", to: "/tax-servicing" },
+          { label: "Life of Loan Tax Servicing", to: "/life-of-loan-tax-servicing" },
+          { label: "Appraisal Services", to: "/appraisal-services" }
         ]
       }
     ]

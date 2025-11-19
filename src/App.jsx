@@ -8,6 +8,11 @@ import Automation from "./pages/Automation";
 import Bi from "./pages/Bi";
 import Ep from "./pages/Ep";
 import Se from "./pages/Se";
+import MortageServices from "./pages/Ms";
+import Appraisal from "./pages/Appraisal";
+import Tax from "./pages/Tax"
+import Title from "./pages/Tps"
+import Life from "./pages/Life"
 import Aiml from "./pages/Aiml";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -35,6 +40,11 @@ function App() {
           <Route path="/data-bi" element={<Bi />} />
           <Route path="/enterprise-platforms" element={<Ep />} />
           <Route path="/software-engineering" element={<Se />} />
+          <Route path="/mortgage-services" element={<MortageServices />} />
+          <Route path="/title-production-services" element={<Title />} />
+          <Route path="/tax-servicing" element={<Tax/>} />
+          <Route path="/life-of-loan-tax-servicing" element={<Life/>} />
+          <Route path="/appraisal-services" element={<Appraisal/>} />
           {/* Add more routes as needed */}
         </Routes>
       </div>
